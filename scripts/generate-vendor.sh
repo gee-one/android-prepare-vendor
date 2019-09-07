@@ -477,7 +477,7 @@ gen_apk_dso_symlink() {
   echo "\$(LOCAL_BUILT_MODULE): TARGET := $dso_root/$dso_name"
   echo "\$(LOCAL_BUILT_MODULE): SYMLINK := $apk_dir/lib/$dso_abi/$dso_name"
   echo "\$(LOCAL_BUILT_MODULE): \$(LOCAL_PATH)/Android.mk"
-  echo "\$(LOCAL_BUILT_MODULE):"
+  echo "\$(LOCAL_BUILT_MODULE):" # TODO: Not working in Q
   echo "\t\$(hide) mkdir -p \$(dir \$@)"
   echo "\t\$(hide) mkdir -p \$(dir \$(SYMLINK))"
   echo "\t\$(hide) rm -rf \$@"
@@ -544,7 +544,7 @@ gen_standalone_symlinks() {
       echo -e "\$(LOCAL_BUILT_MODULE): TARGET := $src"
       echo -e "\$(LOCAL_BUILT_MODULE): SYMLINK := \$(PRODUCT_OUT)/$dst"
       echo -e "\$(LOCAL_BUILT_MODULE): \$(LOCAL_PATH)/Android.mk"
-      echo -e "\$(LOCAL_BUILT_MODULE):"
+      echo -e "\$(LOCAL_BUILT_MODULE):" # TODO: Not working in Q
       echo -e "\t\$(hide) mkdir -p \$(dir \$@)"
       echo -e "\t\$(hide) mkdir -p \$(dir \$(SYMLINK))"
       echo -e "\t\$(hide) rm -rf \$@"
@@ -605,7 +605,7 @@ gen_mk_for_bytecode() {
 
     # Adjust APK/JAR specifics
     if [[ "$fileExt" == "jar" ]]; then
-      src="$relRoot/$relSubRoot/$zipName"
+      src="$relRoot/$relSubRoot/$zipName" # TODO fix for product/framework/*.jar
       class='JAVA_LIBRARIES'
       suffix='$(COMMON_JAVA_PACKAGE_SUFFIX)'
     elif [[ "$fileExt" == "apk" ]]; then
